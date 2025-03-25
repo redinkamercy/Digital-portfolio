@@ -1,12 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Animate elements when scrolling
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
+    const sections = document.querySelectorAll("section");
+
+    function revealSections() {
+        sections.forEach((section) => {
+            let sectionTop = section.getBoundingClientRect().top;
+            if (sectionTop < window.innerHeight - 100) {
+                section.classList.add("active");
             }
         });
-    }, { threshold: 0.2 });
+    }
 
-    document.querySelectorAll(".slide-up").forEach(el => observer.observe(el));
+    window.addEventListener("scroll", revealSections);
+    revealSections(); // Initial call for first load
 });
